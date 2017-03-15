@@ -1,2 +1,5 @@
 # ubiquitous-pancake
-Parallel programming algorithms
+
+Parallel algorithms implemented using C, openMP and the BSP model
+
+
