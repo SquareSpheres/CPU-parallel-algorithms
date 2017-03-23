@@ -250,3 +250,6 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+*.sln
+*.vcxproj
+GenericSort/GenericSort/GenericSort.vcxproj.filters
