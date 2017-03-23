@@ -253,3 +253,4 @@ paket-files/
 *.sln
 *.vcxproj
 GenericSort/GenericSort/GenericSort.vcxproj.filters
+*.filters
