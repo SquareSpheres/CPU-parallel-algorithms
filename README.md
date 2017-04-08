@@ -6,7 +6,7 @@
 
 <details> 
   <summary>Sequential bucket sort </summary>
-   ![Alt text](/Results//Bucket_Seq_sort.PNG?raw=true "Optional Title")
+  <img src="/Results//Bucket_Seq_sort.PNG">
 </details>
 
 
