@@ -17,3 +17,16 @@
 
 
 ## Matrix multiplication
+
+<details> 
+  <summary>Shifting-B </summary>
+  <img src="/Results//Shift_B.PNG">
+  <img src="/Results//Shift_B_scale.PNG">
+</details>
+
+<details> 
+  <summary>Cannon's Algorithm </summary>
+  <img src="/Results//Cannon.PNG">
+  <img src="/Results//Cannon_speedup.PNG">
+</details>
+
