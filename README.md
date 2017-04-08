@@ -2,6 +2,13 @@
 
 ## Bucket sort
 
+
+{| class="wikitable mw-collapsible"
+! Simple collapsible table
+|-
+| Lorem ipsum dolor sit amet
+|}
+
 ### Sequential bucket sort
 
 ![Alt text](/Results//Bucket_Seq_sort.PNG?raw=true "Optional Title")
