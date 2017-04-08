@@ -3,15 +3,13 @@
 ## Bucket sort
 
 
-{| class="wikitable mw-collapsible"
-! Simple collapsible table
-|-
-| Lorem ipsum dolor sit amet
-|}
 
-### Sequential bucket sort
+<details> 
+  <summary>Sequential bucket sort </summary>
+   ![Alt text](/Results//Bucket_Seq_sort.PNG?raw=true "Optional Title")
+</details>
 
-![Alt text](/Results//Bucket_Seq_sort.PNG?raw=true "Optional Title")
+
 
 ### Parallel bucket sort
 ![Alt text](/Results//Bucket_Par_sort.PNG?raw=true "Optional Title")
