@@ -79,12 +79,12 @@ void oddEvenSort() {
       }
       if (pid % 2 == 1 && pid < nprocs - 1) {
         // arr should be smaller than otherArr
-        getSmaller(arr, otherArr);
+        getLarger(otherArr, arr);
       }
     } else {
       if (pid % 2 == 0 && pid < nprocs - 1) {
         // arr should be smaller than otherArr
-        getSmaller(arr, otherArr);
+        getLarger(otherArr, arr);
       }
       if (pid % 2 == 1 && pid > 0) {
         // arr should be larger than otherArr
@@ -110,7 +110,11 @@ void oddEvenSort() {
 
   printf("Thread %d largest value = %d\n", pid, arr[N - 1]);
 
+  // Pop registers
   bsp_pop_reg(otherArr);
+  // Free memory on heap
+  free(otherArr);
+  free(arr);
 
   bsp_end();
 }
@@ -118,15 +122,6 @@ void oddEvenSort() {
 void getLarger(int *const arr, int *const otherArr) {
   for (size_t i = 0; i < N; i++) {
     if (otherArr[i] > arr[i]) {
-      int temp = arr[i];
-      arr[i] = otherArr[i];
-      otherArr[i] = temp;
-    }
-  }
-}
-void getSmaller(int *const arr, int *const otherArr) {
-  for (size_t i = 0; i < N; i++) {
-    if (otherArr[i] < arr[i]) {
       int temp = arr[i];
       arr[i] = otherArr[i];
       otherArr[i] = temp;
