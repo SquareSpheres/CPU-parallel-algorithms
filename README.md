@@ -1,6 +1,6 @@
 # Parallel Algorithms
 
-Some parallel algorithms implemented using the Bulk Synchronous Parallel model, and OpenMP. The algorithms are implemented in C, but might as well have been implemented in C++. Using C++ I would see a significant performance increase especially on the sorting algorithms. The algorithms were tested on a machine with 80 threads. On the performance graphs, you will see some strange behavior were performance drops especially on the 20,40, 60 thread marks. This probably has to do with recruiting new processors cores and significantly more overhead.
+Some parallel algorithms implemented using the Bulk Synchronous Parallel model, and OpenMP. The algorithms are implemented in C, but might as well have been implemented in C++. Using C++ I would see a significant performance increase especially on the sorting algorithms. The algorithms were tested on a machine with 80 threads. On the performance graphs, you will see some strange behavior were performance drops especially on the 20,40, 60 thread marks. This probably has to do with recruiting new processor cores, and the overhead that comes with it.
 
 ## Bucket sort
 
