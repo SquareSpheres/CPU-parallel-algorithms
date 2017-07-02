@@ -39,4 +39,7 @@ Some parallel algorithms implemented using the Bulk Synchronous Parallel model, 
 
 <details> 
   <summary>Convex hull </summary>
+  <img src="/Results//Convex_seq_vs_par.PNG">
+  <img src="/Results//Convex_speedup.PNG">
+  <img src="/Results//Convex_speedup2.PNG">
 </details>
