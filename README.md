@@ -35,6 +35,10 @@ Some parallel algorithms implemented using the Bulk Synchronous Parallel model, 
 
 ## Odd–Even Transposition sort
 
+<details> 
+</details>
+
+
 ## Convex hull
 
 <details> 
@@ -43,3 +47,10 @@ Some parallel algorithms implemented using the Bulk Synchronous Parallel model, 
   <img src="/Results//Convex_speedup.PNG">
   <img src="/Results//Convex_speedup2.PNG">
 </details>
+
+
+## Connected Components
+
+<details> 
+</details>
+
