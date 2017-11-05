@@ -26,7 +26,29 @@ adjacency_list<vecS, vecS, undirectedS> GenerateRandomGraphBoost(const int numVe
 
 void GenerateRandomGraphToFile(const std::string filename, const int numVertices, const float prob)
 {
-	//TODO BOOST GENERATION HERE
+	typedef adjacency_list<vecS, vecS, undirectedS> Graph;
+	typedef erdos_renyi_iterator<boost::minstd_rand, Graph> ERGen;
+
+	// random generator
+	boost::minstd_rand gen;
+	gen.seed(time(nullptr));
+	Graph g(ERGen(gen, numVertices, prob), ERGen(), numVertices);
+
+	graph_traits<Graph>::edge_iterator ei, ei_end;
+
+
+	std::ofstream outFile;
+	outFile.open(filename);
+	// print num vertives
+	outFile << numVertices << endl;
+	// print num edges
+	outFile << num_edges(g) << endl;
+
+	for (tie(ei, ei_end) = edges(g); ei != ei_end; ++ei)
+	{
+		outFile << source(*ei, g) << " " << target(*ei, g) << endl;
+	}
+
 }
 
 std::pair<int, int> ReadGraphFromFile(const std::string filename, std::vector<std::pair<int, int>>* buffer)
@@ -55,7 +77,6 @@ std::pair<int, int> ReadGraphFromFile(const std::string filename, std::vector<st
 
 	return std::pair<int, int>{0, 0};
 }
-
 
 
 std::pair<int, int> FromBoostToStdGraph(adjacency_list<vecS, vecS, undirectedS> &boostGraph, std::vector<std::pair<int, int>>* buffer)
