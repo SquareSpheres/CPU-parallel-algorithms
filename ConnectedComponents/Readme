@@ -5,3 +5,5 @@ http://www.boost.org/doc/libs/1_65_1/libs/graph/doc/index.html
 List of current parallel algorithms
  
  - Shiloach-Vishkin Algorithm
+ - Shiloach-Vishkin-updt Algorithm
+ - Shiloach-Vishkin using openACC (move to separate repository)
