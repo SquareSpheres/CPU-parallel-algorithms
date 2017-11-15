@@ -1,7 +1,4 @@
-#include "stdafx.h"
 #include "ShiloachesVishkinOmp.h"
-#include <unordered_map>
-
 
 std::vector<int> ShiloachVishkinOmp(std::pair<int, int> *graph, const int numVertices, const int numEdges)
 {
@@ -25,17 +22,6 @@ std::vector<int> ShiloachVishkinOmp(std::pair<int, int> *graph, const int numVer
 #pragma omp for
 			for (int i = 0; i < numEdges; ++i)
 			{
-
-				/**
-				*	In traditional Shiloach-Vishkin algorithm, every edge is represented as (u,v) and (v,u) in the graph.
-				*	To save memory, I only have (u,v) in the graph, but iterate the edge twice so I get both (u,v), and (v,u).
-				*
-				*	TODO move grafting to its own function
-				*	TODO move shortcutting to its own function
-				*
-				*
-				*/
-
 				{
 					const int fromVertex = graph[i].first;
 					const int toVertex = graph[i].second;
@@ -45,7 +31,7 @@ std::vector<int> ShiloachVishkinOmp(std::pair<int, int> *graph, const int numVer
 
 					if ((fromComponent < toComponent) && (toComponent == component[toComponent]))
 					{
-						hasGrafted = true;
+						if (!hasGrafted) hasGrafted = true;
 						component[toComponent] = fromComponent;
 					}
 				}
@@ -59,7 +45,7 @@ std::vector<int> ShiloachVishkinOmp(std::pair<int, int> *graph, const int numVer
 
 					if ((fromComponent < toComponent) && (toComponent == component[toComponent]))
 					{
-						hasGrafted = true;
+						if (!hasGrafted) hasGrafted = true;
 						component[toComponent] = fromComponent;
 					}
 				}
@@ -77,23 +63,8 @@ std::vector<int> ShiloachVishkinOmp(std::pair<int, int> *graph, const int numVer
 		}
 	}
 
-	// post processing. Inlcude this in runtime?
-	std::unordered_map<int, int> uniqueComp;
-	int count = 0;
-
-	for (int i = 0; i < numVertices; i++)
-	{
-		int value = component[i];
-		if (uniqueComp.find(value) == uniqueComp.end())
-		{
-			uniqueComp.insert({ value, count++ });
-		}
-
-		component[i] = uniqueComp[component[i]];
-	}
 
 	return component;
-
 }
 
 std::vector<int> ShiloachVishkinUpdtOmp(std::pair<int, int> *graph, const int numVertices, const int numEdges)
@@ -126,7 +97,7 @@ std::vector<int> ShiloachVishkinUpdtOmp(std::pair<int, int> *graph, const int nu
 
 					if (fromVertex < toVertex && toVertex == component[toVertex])
 					{
-						hasGrafted = true;
+						if (!hasGrafted) hasGrafted = true;
 						component[toVertex] = fromVertex;
 					}
 				}
@@ -139,7 +110,7 @@ std::vector<int> ShiloachVishkinUpdtOmp(std::pair<int, int> *graph, const int nu
 
 					if (fromVertex < toVertex && toVertex == component[toVertex])
 					{
-						hasGrafted = true;
+						if (!hasGrafted) hasGrafted = true;
 						component[toVertex] = fromVertex;
 					}
 				}
@@ -161,21 +132,6 @@ std::vector<int> ShiloachVishkinUpdtOmp(std::pair<int, int> *graph, const int nu
 		}
 	}
 
-
-	// post processing. Inlcude this in runtime?
-	std::unordered_map<int, int> uniqueComp;
-	int count = 0;
-
-	for (int i = 0; i < numVertices; i++)
-	{
-		int value = component[i];
-		if (uniqueComp.find(value) == uniqueComp.end())
-		{
-			uniqueComp.insert({ value, count++ });
-		}
-
-		component[i] = uniqueComp[component[i]];
-	}
 
 	return component;
 }
