@@ -9,24 +9,17 @@ using namespace std;
 using namespace boost;
 
 
+vector<int> BoostConnectedComponent(adjacency_list<vecS, vecS, undirectedS> &graph);
 void GenerateRandomGraphToFile(const std::string filename, const int numVertices, const float prob);
 adjacency_list<vecS, vecS, undirectedS> GenerateRandomGraphBoost(const int numVertices, const float prob);
+std::vector < std::pair<int, int>> GenerateRandomStdGraph(const int numVertices, const float prob);
 std::pair<int, int> ReadGraphFromFile(const std::string filename, std::vector<std::pair<int, int>>* buffer);
 std::pair<int, int> FromBoostToStdGraph(adjacency_list<vecS, vecS, undirectedS> &boostGraph, std::vector<std::pair<int, int>>* buffer);
 std::pair<int, int> FromBoostToStdGraphBi(adjacency_list<vecS, vecS, undirectedS> &boostGraph, std::vector<std::pair<int, int>>* buffer);
+adjacency_list<vecS, vecS, undirectedS> FromStdToBoostGraph(std::pair<int, int>* graph, const int numVertices, const int numEdges);
+void PrintArray_int(int *arr, const unsigned int size);
+void PrintVector_int(std::vector<int> &vec);
+void PostProcessConnectedCompnent(int *component, const unsigned int numVertices);
+void SaveGraphToFile(const std::string filename, adjacency_list<vecS, vecS, undirectedS> &boostGraph);
 
 
-template <class T>
-void PrintVector(std::vector<T> &vec)
-{
-	std::stringstream stream;
-	for (int i = 0; i < vec.size(); ++i)
-	{
-		if (i == 0) stream << "[" << vec[i] <<",";
-		else if (i == vec.size() - 1) stream << vec[i] << "]";
-		else 	stream << vec[i] << ",";
-
-	}
-
-	std::cout << stream.str() << endl;
-}

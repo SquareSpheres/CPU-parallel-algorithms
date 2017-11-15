@@ -1,13 +1,69 @@
-#include "stdafx.h"
 #include "Utils.h"
 #include <boost/graph/erdos_renyi_generator.hpp>
 #include <boost/random/linear_congruential.hpp>
+#include <boost/graph/connected_components.hpp>
 #include <fstream>
 #include <ctime>
 
 
 using namespace std;
 using namespace boost;
+
+
+
+void PostProcessConnectedCompnent(int *component, const unsigned int numVertices) {
+	// post processing. Inlcude this in runtime?
+	std::unordered_map<int, int> uniqueComp;
+	int count = 0;
+
+	for (int i = 0; i < numVertices; i++)
+	{
+		int value = component[i];
+		if (uniqueComp.find(value) == uniqueComp.end())
+		{
+			uniqueComp.insert({ value, count++ });
+		}
+
+		component[i] = uniqueComp[component[i]];
+	}
+}
+
+
+void PrintVector_int(std::vector<int> &vec)
+{
+	std::stringstream stream;
+	for (int i = 0; i < vec.size(); ++i)
+	{
+		if (i == 0) stream << "[" << vec[i] << ",";
+		else if (i == vec.size() - 1) stream << vec[i] << "]";
+		else 	stream << vec[i] << ",";
+
+	}
+
+	std::cout << stream.str() << endl;
+}
+
+void PrintArray_int(int *arr, const unsigned int size)
+{
+	std::stringstream stream;
+	for (int i = 0; i < size; ++i)
+	{
+		if (i == 0) stream << "[" << arr[i] << ",";
+		else if (i == size - 1) stream << arr[i] << "]";
+		else 	stream << arr[i] << ",";
+
+	}
+
+	std::cout << stream.str() << endl;
+}
+
+
+vector<int> BoostConnectedComponent(adjacency_list<vecS, vecS, undirectedS> &graph)
+{
+	std::vector<int> component(num_vertices(graph));
+	int num = connected_components(graph, &component[0]);
+	return component;
+}
 
 
 adjacency_list<vecS, vecS, undirectedS> GenerateRandomGraphBoost(const int numVertices, const float prob)
@@ -18,10 +74,29 @@ adjacency_list<vecS, vecS, undirectedS> GenerateRandomGraphBoost(const int numVe
 	// random generator
 	boost::minstd_rand gen;
 	gen.seed(time(nullptr));
-	Graph g(ERGen(gen, numVertices, prob), ERGen(), numVertices);
+
+	Graph g(ERGen(gen, numVertices, prob, false), ERGen(), numVertices);
 	return g;
 }
 
+std::vector<std::pair<int, int>> GenerateRandomStdGraph(const int numVertices, const float prob)
+{
+	typedef adjacency_list<vecS, vecS, undirectedS> Graph;
+	typedef erdos_renyi_iterator<boost::minstd_rand, Graph> ERGen;
+	std::vector<std::pair<int, int>> stdGraph;
+
+	boost::minstd_rand gen;
+	gen.seed(time(nullptr));
+
+	ERGen er(gen, numVertices, prob, false);
+
+	for (; er != ERGen(); ++er)
+	{
+		stdGraph.push_back({ er->first,er->second });
+	}
+
+	return stdGraph;
+}
 
 
 void GenerateRandomGraphToFile(const std::string filename, const int numVertices, const float prob)
@@ -49,6 +124,26 @@ void GenerateRandomGraphToFile(const std::string filename, const int numVertices
 		outFile << source(*ei, g) << " " << target(*ei, g) << endl;
 	}
 
+}
+
+void SaveGraphToFile(const std::string filename, adjacency_list<vecS, vecS, undirectedS> &boostGraph)
+{
+
+	typedef adjacency_list<vecS, vecS, undirectedS> Graph;
+
+	std::ofstream outFile;
+	outFile.open(filename);
+	// print num vertives
+	outFile << num_vertices(boostGraph) << endl;
+	// print num edges
+	outFile << num_edges(boostGraph) << endl;
+
+	graph_traits<Graph>::edge_iterator ei, ei_end;
+	for (tie(ei, ei_end) = edges(boostGraph); ei != ei_end; ++ei)
+	{
+		outFile << source(*ei, boostGraph) << " " << target(*ei, boostGraph) << endl;
+	}
+	outFile.close();
 }
 
 std::pair<int, int> ReadGraphFromFile(const std::string filename, std::vector<std::pair<int, int>>* buffer)
@@ -117,4 +212,19 @@ std::pair<int, int> FromBoostToStdGraphBi(adjacency_list<vecS, vecS, undirectedS
 	}
 
 	return numVerticesAndEdges;
+}
+
+adjacency_list<vecS, vecS, undirectedS> FromStdToBoostGraph(std::pair<int, int>* graph, const int numVertices, const int numEdges)
+{
+	adjacency_list<vecS, vecS, undirectedS> boostGraph;
+	for (int i = 0; i < numVertices; ++i)
+	{
+		add_vertex(boostGraph);
+	}
+	for (int i = 0; i < numEdges; ++i)
+	{
+		add_edge(graph[i].first, graph[i].second, boostGraph);
+	}
+
+	return boostGraph;
 }
