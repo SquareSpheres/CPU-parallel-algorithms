@@ -7,7 +7,7 @@ typedef std::pair<int, int> undirected_edge;
 
 
 /// <summary>
-/// Parallel Shiloaches-vishkin algorithm. The graph is an array of std::pair<int,int>, where each pair represents a edge from a vertex to antoher.
+/// Parallel Shiloaches-vishkin algorithm. The graph is an array of std::pair<int,int>, where each pair represents a edge from a vertex to another.
 /// E.g. std::pair{0,3} represents an edge from vertex 0 to vertex 3. The algorithm returns a vector with size |numVertices|, where each index 
 /// represents what component that vertex belongs to. E.g. component[7] will give you vertex 7s component.
 ///
@@ -18,17 +18,17 @@ typedef std::pair<int, int> undirected_edge;
 /// <param name="graph">An array std::pair</param>
 /// <param name="numVertices">The number vertices.</param>
 /// <param name="numEdges">The number edges.</param>
-/// <returns></returns>
+/// <returns>Component vector</returns>
 std::vector<int> ShiloachVishkinUpdtOmp(std::pair<int, int> *graph, const int numVertices, const int numEdges);
 
 /// <summary>
-/// Parallel Shiloaches-vishkin algorithm. The graph is an array of std::pair<int,int>, where each pair represents a edge from a vertex to antoher.
+/// Parallel Shiloaches-vishkin algorithm. The graph is an array of std::pair<int,int>, where each pair represents a edge from a vertex to another.
 /// E.g. std::pair{0,3} represents an edge from vertex 0 to vertex 3. The algorithm returns a vector with size |numVertices|, where each index 
 /// represents what component that vertex belongs to. E.g. component[7] will give you vertex 7s component.
 /// </summary>
 /// <param name="graph">An array std::pair</param>
 /// <param name="numVertices">The number vertices.</param>
 /// <param name="numEdges">The number edges.</param>
-/// <returns></returns>
+/// <returns>Component vector</returns>
 std::vector<int> ShiloachVishkinOmp(std::pair<int, int> *graph, const int numVertices, const int numEdges);
 
