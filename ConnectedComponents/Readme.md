@@ -6,4 +6,3 @@ List of current parallel algorithms
  
  - Shiloach-Vishkin Algorithm
  - Shiloach-Vishkin-updt Algorithm
- - <strike>Shiloach-Vishkin using openACC (move to separate repository)</strike>
